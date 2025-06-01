@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
                 </svg>
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-800 hidden sm:block">Contact Manager</h1>
+                <h1 className="text-lg font-bold text-gray-800 hidden sm:block">Naventra Contact Manager</h1>
                 <p className="text-xs text-gray-500 hidden md:block">Organize your contacts</p>
               </div>
             </Link>
