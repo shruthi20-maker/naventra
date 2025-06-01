@@ -30,8 +30,15 @@ const port = 8080;
 
 app.get("/", (req, res) => {
     res.json({
-        message: "Welcome to the foodConnect backend server",
-        status: "Server is running"
+        message: "Welcome to the Contact Management API",
+        status: "Server is running",
+        endpoints: {
+            addContact: "POST /api/v1/user/add-contact",
+            getAllContacts: "GET /api/v1/user/get-contacts",
+            getContactById: "GET /api/v1/user/get-contact/:id",
+            updateContact: "PUT /api/v1/user/update-contact/:id",
+            deleteContact: "DELETE /api/v1/user/delete-contact/:id"
+        }
     });
 });
 

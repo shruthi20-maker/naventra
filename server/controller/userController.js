@@ -20,15 +20,18 @@ export const addUser = async (req, res) => {
                 }
             });
         }
-        
-        const { userName, email, phoneNumber } = req.body;
-        
-        // Validate required fields
-        if (!userName || !email || !phoneNumber) {
+          const { name, email, phoneNumber } = req.body;
+          // Validate required fields
+        if (!name || !email || !phoneNumber) {
+            const missingFields = [];
+            if (!name) missingFields.push('name');
+            if (!email) missingFields.push('email');
+            if (!phoneNumber) missingFields.push('phoneNumber');
+            
             return res.status(400).json({
                 success: false,
-                message: 'Name, email, and phone number are required fields',
-                received: { userName, email, phoneNumber }
+                message: `Missing required fields: ${missingFields.join(', ')}`,
+                received: req.body
             });
         }
         
@@ -40,10 +43,9 @@ export const addUser = async (req, res) => {
                 message: 'Contact with this email already exists'
             });
         }
-        
-        // Create new contact
+          // Create new contact
         const newContact = new User({
-            userName,
+            name,
             email,
             phoneNumber
         });
@@ -95,9 +97,7 @@ export const getUser = async (req, res) => {
             const contacts = await User.find()
                 .skip(skip)
                 .limit(limit)
-                .sort({ createdAt: -1 });
-
-            const totalContacts = await User.countDocuments();
+                .sort({ createdAt: -1 });            const totalContacts = await User.countDocuments();
             const totalPages = Math.ceil(totalContacts / limit);
 
             res.status(200).json({

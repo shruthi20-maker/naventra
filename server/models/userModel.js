@@ -1,19 +1,21 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
-
-    userName:{
+    name:{
         type: String,
-        required: false,
+        required: [true, "Name is required"],
+        trim: true
     },
     email:{
         type: String,
-        required: false,
+        required: [true, "Email is required"],
         trim: true,
-        unique: true
+        unique: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
     },
     phoneNumber:{
         type: Number,
-        required: false
+        required: [true, "Phone number is required"]
     }
-})
-export default mongoose.model("user",userSchema)
+}, { timestamps: true })
+
+export default mongoose.model("user", userSchema)
